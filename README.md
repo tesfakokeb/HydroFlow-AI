@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 
 **AI-Powered Water Resources Intelligence**
-*Analyze. Forecast. Model. Predict. Manage Water.*
+_Analyze. Forecast. Model. Predict. Manage Water._
 
 HydroFlow AI is a cloud-native decision-support platform for hydrologists, water resources engineers, planners, and emergency managers. The repository combines a conversational analytical interface with real hydrologic science: drought indices, flood frequency, rainfall-runoff modeling, probabilistic forecasting, water-quality analytics, and reservoir simulation — each implemented against a published method, unit-tested against reference values, and reported with the data, assumptions, limitations, and uncertainty behind it.
 
@@ -19,7 +19,7 @@ carries a provenance record.**
 
 That single rule shapes the architecture:
 
-- The Copilot is a *tool selector*, not a text generator. It cannot state a discharge, an index value
+- The Copilot is a _tool selector_, not a text generator. It cannot state a discharge, an index value
   or a model metric that did not come from a tool result. When no tool fits the question, it says so.
 - Every analytical endpoint returns the same `ToolResult` shape: a summary, quantities **with units**,
   metrics, charts, maps, warnings — and a `ProvenanceRecord` naming the datasets, versions, temporal
@@ -83,15 +83,15 @@ seeded automatically before the API starts.
 
 ### Adding capabilities incrementally
 
-| Add                                         | Unlocks                                                              |
-| ------------------------------------------- | -------------------------------------------------------------------- |
-| `DATABASE_URL` + `npm run db:migrate && npm run db:seed` | Persistence, PostGIS spatial queries, TimescaleDB hypertables |
-| `SCIENCE_SERVICE_URL`                       | Random Forest, XGBoost, LightGBM; NetCDF/GeoTIFF/Parquet profiling    |
-| `ANTHROPIC_API_KEY`                         | Language-model tool selection and prose (results are unchanged)       |
-| `REDIS_URL`                                 | Declared for the queue integration point; jobs still execute in-process today (`/api/status` says so) |
-| `HEC_RAS_PATH`, `HEC_HMS_PATH`, `SWAT_PATH` … | The corresponding model adapters                                    |
-| `services/science/requirements-deep.txt`    | LSTM and GRU forecasting                                              |
-| `services/science/requirements-geo.txt`     | Geospatial and multidimensional readers                               |
+| Add                                                      | Unlocks                                                                                               |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL` + `npm run db:migrate && npm run db:seed` | Persistence, PostGIS spatial queries, TimescaleDB hypertables                                         |
+| `SCIENCE_SERVICE_URL`                                    | Random Forest, XGBoost, LightGBM; NetCDF/GeoTIFF/Parquet profiling                                    |
+| `ANTHROPIC_API_KEY`                                      | Language-model tool selection and prose (results are unchanged)                                       |
+| `REDIS_URL`                                              | Declared for the queue integration point; jobs still execute in-process today (`/api/status` says so) |
+| `HEC_RAS_PATH`, `HEC_HMS_PATH`, `SWAT_PATH` …            | The corresponding model adapters                                                                      |
+| `services/science/requirements-deep.txt`                 | LSTM and GRU forecasting                                                                              |
+| `services/science/requirements-geo.txt`                  | Geospatial and multidimensional readers                                                               |
 
 ---
 
@@ -148,7 +148,7 @@ flowchart TB
 
 ### Why the science lives in two places
 
-`@hydro/hydrology-core` holds TypeScript implementations of every method the platform *reports*:
+`@hydro/hydrology-core` holds TypeScript implementations of every method the platform _reports_:
 drought indices, flood frequency, flow statistics, baseflow separation, model metrics, GR4J,
 reservoir simulation. It is dependency-free, deterministic and unit-tested against published values.
 That is what makes the platform scientifically useful on a laptop with nothing installed.
@@ -200,17 +200,17 @@ flowchart LR
 
 ## Technology stack
 
-| Layer         | Choice                                                                          |
-| ------------- | ------------------------------------------------------------------------------- |
-| Frontend      | React 18, TypeScript, Vite, Tailwind CSS, React Router, TanStack Query, Zustand  |
-| Charts / maps | Recharts, MapLibre GL                                                            |
-| API           | Node 22, TypeScript, Fastify 5, JWT, OpenAPI/Swagger, WebSocket, Zod validation  |
-| Science (TS)  | `@hydro/hydrology-core` — dependency-free, unit-tested                           |
+| Layer         | Choice                                                                                              |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| Frontend      | React 18, TypeScript, Vite, Tailwind CSS, React Router, TanStack Query, Zustand                     |
+| Charts / maps | Recharts, MapLibre GL                                                                               |
+| API           | Node 22, TypeScript, Fastify 5, JWT, OpenAPI/Swagger, WebSocket, Zod validation                     |
+| Science (TS)  | `@hydro/hydrology-core` — dependency-free, unit-tested                                              |
 | Science (Py)  | FastAPI, NumPy, pandas, SciPy, scikit-learn, XGBoost; optional PyTorch, GeoPandas, rasterio, xarray |
-| Database      | PostgreSQL 16, PostGIS, TimescaleDB (optional, detected at migration time)       |
-| Queue         | In-process executor with a documented BullMQ + Redis integration point           |
-| Storage       | S3-compatible (AWS S3, Azure Blob, GCS, MinIO), local filesystem fallback        |
-| Container     | Docker, docker compose, nginx                                                    |
+| Database      | PostgreSQL 16, PostGIS, TimescaleDB (optional, detected at migration time)                          |
+| Queue         | In-process executor with a documented BullMQ + Redis integration point                              |
+| Storage       | S3-compatible (AWS S3, Azure Blob, GCS, MinIO), local filesystem fallback                           |
+| Container     | Docker, docker compose, nginx                                                                       |
 
 ---
 
@@ -221,24 +221,24 @@ panel and in generated reports.
 
 ### Streamflow
 
-| Method | Implementation | Reference |
-| --- | --- | --- |
-| Flow-duration curve | Weibull plotting position `i/(n+1)` | Searcy (1959), USGS WSP 1542-A |
-| 7Q10 low flow | Log-normal fit to annual 7-day minima | Standard regulatory low-flow statistic |
-| Baseflow separation | Lyne–Hollick recursive digital filter, three passes, α = 0.925 | Nathan & McMahon (1990) |
-| Annual peaks | USGS water year (1 Oct – 30 Sep) | — |
-| Bankfull proxy | 1.5-year recurrence-interval peak | Labelled an approximation, never a survey |
-| Event extraction | Peak-over-threshold with declustering | — |
+| Method              | Implementation                                                 | Reference                                 |
+| ------------------- | -------------------------------------------------------------- | ----------------------------------------- |
+| Flow-duration curve | Weibull plotting position `i/(n+1)`                            | Searcy (1959), USGS WSP 1542-A            |
+| 7Q10 low flow       | Log-normal fit to annual 7-day minima                          | Standard regulatory low-flow statistic    |
+| Baseflow separation | Lyne–Hollick recursive digital filter, three passes, α = 0.925 | Nathan & McMahon (1990)                   |
+| Annual peaks        | USGS water year (1 Oct – 30 Sep)                               | —                                         |
+| Bankfull proxy      | 1.5-year recurrence-interval peak                              | Labelled an approximation, never a survey |
+| Event extraction    | Peak-over-threshold with declustering                          | —                                         |
 
 ### Drought
 
-| Method | Implementation | Reference |
-| --- | --- | --- |
-| SPI | Gamma (Thom MLE), zero-inflated, fitted per calendar month | McKee et al. (1993); WMO-No. 1090 |
-| SPEI | Three-parameter log-logistic by L-moments on P − PET | Vicente-Serrano et al. (2010) |
-| SSI | SPI transform on accumulated streamflow | Vicente-Serrano et al. (2012) |
-| Reference ET | Hargreaves–Samani with FAO-56 extraterrestrial radiation | Hargreaves & Samani (1985) |
-| Classification | US Drought Monitor breakpoints (D0–D4, W0–W4) | Svoboda et al. (2002) |
+| Method         | Implementation                                             | Reference                         |
+| -------------- | ---------------------------------------------------------- | --------------------------------- |
+| SPI            | Gamma (Thom MLE), zero-inflated, fitted per calendar month | McKee et al. (1993); WMO-No. 1090 |
+| SPEI           | Three-parameter log-logistic by L-moments on P − PET       | Vicente-Serrano et al. (2010)     |
+| SSI            | SPI transform on accumulated streamflow                    | Vicente-Serrano et al. (2012)     |
+| Reference ET   | Hargreaves–Samani with FAO-56 extraterrestrial radiation   | Hargreaves & Samani (1985)        |
+| Classification | US Drought Monitor breakpoints (D0–D4, W0–W4)              | Svoboda et al. (2002)             |
 
 PDSI is deliberately **not** implemented: it requires calibrated soil available-water capacity by
 climate division. The tool exists, explains what is missing, and offers SPEI as the closest
@@ -246,13 +246,13 @@ computable alternative.
 
 ### Flood
 
-| Method | Implementation | Reference |
-| --- | --- | --- |
-| Log-Pearson III | Wilson–Hilferty frequency factors, optional Bulletin 17B skew weighting, first-order confidence limits | Bulletin 17B (1982); Bulletin 17C (2018) |
-| GEV | L-moments | Hosking (1990) |
-| Return period | Weibull plotting position, refusing extrapolation beyond the record | — |
-| Encounter probability | `1 − (1 − 1/T)ⁿ` | — |
-| Hazard class | Depth and depth–velocity product | AR&R (2019) Book 6; FEMA conventions |
+| Method                | Implementation                                                                                         | Reference                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
+| Log-Pearson III       | Wilson–Hilferty frequency factors, optional Bulletin 17B skew weighting, first-order confidence limits | Bulletin 17B (1982); Bulletin 17C (2018) |
+| GEV                   | L-moments                                                                                              | Hosking (1990)                           |
+| Return period         | Weibull plotting position, refusing extrapolation beyond the record                                    | —                                        |
+| Encounter probability | `1 − (1 − 1/T)ⁿ`                                                                                       | —                                        |
+| Hazard class          | Depth and depth–velocity product                                                                       | AR&R (2019) Book 6; FEMA conventions     |
 
 Bulletin 17C's Expected Moments Algorithm, low-outlier screening (MGBT) and regional skew mapping
 are **not** implemented; results are labelled as simplified at-site analyses and never as regulatory
@@ -260,24 +260,24 @@ determinations.
 
 ### Water quality
 
-| Method | Implementation | Reference |
-| --- | --- | --- |
-| Water Quality Index | CCME WQI 1.0 with F1/F2/F3 reported separately | CCME (2001) |
-| Trend | Seasonal Mann–Kendall with tie correction; Theil–Sen slope | Hirsch et al. (1982); Sen (1968) |
-| Anomalies | Modified z-score (median + MAD) | Iglewicz & Hoaglin (1993) |
-| Correlation | Spearman rank on paired samples | — |
+| Method              | Implementation                                             | Reference                        |
+| ------------------- | ---------------------------------------------------------- | -------------------------------- |
+| Water Quality Index | CCME WQI 1.0 with F1/F2/F3 reported separately             | CCME (2001)                      |
+| Trend               | Seasonal Mann–Kendall with tie correction; Theil–Sen slope | Hirsch et al. (1982); Sen (1968) |
+| Anomalies           | Modified z-score (median + MAD)                            | Iglewicz & Hoaglin (1993)        |
+| Correlation         | Spearman rank on paired samples                            | —                                |
 
 ### Modelling and evaluation
 
-| Method | Implementation | Reference |
-| --- | --- | --- |
-| GR4J | Four-parameter daily lumped rainfall-runoff, UH1/UH2 routing, groundwater exchange | Perrin et al. (2003) |
-| Calibration | Bounded coordinate descent on KGE or NSE, split-sample with warm-up, full search trace | — |
-| NSE | — | Nash & Sutcliffe (1970) |
-| KGE | 2009 formulation with r, α, β reported separately | Gupta et al. (2009) |
-| PBIAS, performance ratings | — | Moriasi et al. (2007, 2015) |
-| Reliability, resilience, vulnerability | Reservoir simulation | Hashimoto et al. (1982) |
-| Water balance | `P = Q + ET + ΔS`, residual reported rather than forced | — |
+| Method                                 | Implementation                                                                         | Reference                   |
+| -------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------- |
+| GR4J                                   | Four-parameter daily lumped rainfall-runoff, UH1/UH2 routing, groundwater exchange     | Perrin et al. (2003)        |
+| Calibration                            | Bounded coordinate descent on KGE or NSE, split-sample with warm-up, full search trace | —                           |
+| NSE                                    | —                                                                                      | Nash & Sutcliffe (1970)     |
+| KGE                                    | 2009 formulation with r, α, β reported separately                                      | Gupta et al. (2009)         |
+| PBIAS, performance ratings             | —                                                                                      | Moriasi et al. (2007, 2015) |
+| Reliability, resilience, vulnerability | Reservoir simulation                                                                   | Hashimoto et al. (1982)     |
+| Water balance                          | `P = Q + ET + ΔS`, residual reported rather than forced                                | —                           |
 
 ---
 
@@ -329,13 +329,13 @@ The system prompt and the composer enforce §25 of the specification. In practic
 
 Horizons of 1, 3, 7, 14, 30 days and seasonal. Models:
 
-| Model | Where it runs | Notes |
-| --- | --- | --- |
-| Persistence, climatology, moving average | API | Benchmarks any skilful model must beat |
-| Autoregressive (ARIMA-family) | API | Ridge-fitted lag model on log-flow anomalies with precipitation lags |
-| Random Forest, XGBoost, LightGBM | Python service | Falls back to `HistGradientBoosting` with a warning if XGBoost is absent |
-| LSTM, GRU | Python service | Requires `requirements-deep.txt`; substitution is reported |
-| Temporal Fusion Transformer | Scaffolded only | `models/tft.py` documents exactly what a real implementation needs; requests are served by XGBoost **and say so** |
+| Model                                    | Where it runs   | Notes                                                                                                             |
+| ---------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Persistence, climatology, moving average | API             | Benchmarks any skilful model must beat                                                                            |
+| Autoregressive (ARIMA-family)            | API             | Ridge-fitted lag model on log-flow anomalies with precipitation lags                                              |
+| Random Forest, XGBoost, LightGBM         | Python service  | Falls back to `HistGradientBoosting` with a warning if XGBoost is absent                                          |
+| LSTM, GRU                                | Python service  | Requires `requirements-deep.txt`; substitution is reported                                                        |
+| Temporal Fusion Transformer              | Scaffolded only | `models/tft.py` documents exactly what a real implementation needs; requests are served by XGBoost **and say so** |
 
 Every forecast reports NSE, KGE, RMSE, MAE, MAPE, R², bias and PBIAS on a **chronologically held-out**
 validation period. No shuffled cross-validation is used anywhere: shuffling a hydrologic series leaks
@@ -350,13 +350,13 @@ no further rainfall and exceedance probabilities are lower bounds during an appr
 
 ## Model integrations
 
-| Engine | Status | To enable |
-| --- | --- | --- |
-| **GR4J** | Built in, always available | Nothing |
-| HEC-HMS | Adapter implemented, validates inputs | `HEC_HMS_PATH` |
-| HEC-RAS 2D | Adapter implemented, validates inputs | `HEC_RAS_PATH` + a project with terrain, mesh, roughness, boundaries |
-| SWAT / SWAT+ | Adapter implemented, validates inputs | `SWAT_PATH` / `SWATPLUS_PATH` + a TxtInOut directory |
-| MODFLOW 6 | Adapter implemented, validates inputs | `MODFLOW_PATH` |
+| Engine       | Status                                | To enable                                                            |
+| ------------ | ------------------------------------- | -------------------------------------------------------------------- |
+| **GR4J**     | Built in, always available            | Nothing                                                              |
+| HEC-HMS      | Adapter implemented, validates inputs | `HEC_HMS_PATH`                                                       |
+| HEC-RAS 2D   | Adapter implemented, validates inputs | `HEC_RAS_PATH` + a project with terrain, mesh, roughness, boundaries |
+| SWAT / SWAT+ | Adapter implemented, validates inputs | `SWAT_PATH` / `SWATPLUS_PATH` + a TxtInOut directory                 |
+| MODFLOW 6    | Adapter implemented, validates inputs | `MODFLOW_PATH`                                                       |
 
 Every adapter implements the same contract:
 
@@ -384,16 +384,16 @@ and the engine's capability list. Nothing is fabricated.
 conceptual rainfall-runoff model (stochastic precipitation generator → soil-moisture store → two
 linear reservoirs) with a seasonal cycle and multi-year wet/dry oscillations.
 
-| Property | Value |
-| --- | --- |
-| Area | 24,996 km², 6 subbasins |
-| Record | 30 years of daily values, 3 stream gauges, precipitation, temperature, reference and actual ET, soil moisture |
-| Water quality | 13 parameters, 3 stations, monthly, with flow-dependent behaviour |
-| Reservoir | 380 MCM capacity, monthly storage, inflow, release, spill, evaporation |
-| Demand | Municipal, agricultural and industrial, with population growth and weather sensitivity |
-| Mean annual precipitation | ≈ 1,140 mm |
-| Mean annual runoff | ≈ 480 mm (runoff coefficient ≈ 0.43) |
-| Water balance closure | Within 0.5 % of precipitation |
+| Property                  | Value                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Area                      | 24,996 km², 6 subbasins                                                                                       |
+| Record                    | 30 years of daily values, 3 stream gauges, precipitation, temperature, reference and actual ET, soil moisture |
+| Water quality             | 13 parameters, 3 stations, monthly, with flow-dependent behaviour                                             |
+| Reservoir                 | 380 MCM capacity, monthly storage, inflow, release, spill, evaporation                                        |
+| Demand                    | Municipal, agricultural and industrial, with population growth and weather sensitivity                        |
+| Mean annual precipitation | ≈ 1,140 mm                                                                                                    |
+| Mean annual runoff        | ≈ 480 mm (runoff coefficient ≈ 0.43)                                                                          |
+| Water balance closure     | Within 0.5 % of precipitation                                                                                 |
 
 The generator is physically consistent by construction — `P = Q + ET + ΔS` closes without a fudge
 term — which is why GR4J calibrates against it to NSE ≈ 0.86 and KGE ≈ 0.93.
@@ -475,20 +475,30 @@ Every analytical endpoint returns the same envelope:
 {
   "data": {
     "ok": true,
-    "summary": "…",                 // prose, traceable to the numbers below
-    "data": { },                    // tool-specific structured payload
+    "summary": "…", // prose, traceable to the numbers below
+    "data": {}, // tool-specific structured payload
     "quantities": { "mean": { "value": 383.7, "unit": "m3/s" } },
     "metrics": { "nse": 0.86 },
-    "charts": [ /* ChartSpec, including its own caption */ ],
-    "maps": [ /* MapSpec */ ],
-    "warnings": [ ],
+    "charts": [
+      /* ChartSpec, including its own caption */
+    ],
+    "maps": [
+      /* MapSpec */
+    ],
+    "warnings": [],
     "provenance": {
-      "runId": "…", "inputHash": "…",
-      "dataSources": [ ], "methods": [ ], "processingSteps": [ ],
-      "temporalCoverage": { }, "spatialExtent": "…",
-      "assumptions": [ ], "limitations": [ ], "uncertainty": { }
-    }
-  }
+      "runId": "…",
+      "inputHash": "…",
+      "dataSources": [],
+      "methods": [],
+      "processingSteps": [],
+      "temporalCoverage": {},
+      "spatialExtent": "…",
+      "assumptions": [],
+      "limitations": [],
+      "uncertainty": {},
+    },
+  },
 }
 ```
 
@@ -515,15 +525,15 @@ cd services/science && pytest       # Python: metrics and the forecasting pipeli
 node scripts/screenshot.mjs         # Playwright: every route, asserting zero console errors
 ```
 
-| Suite | Coverage |
-| --- | --- |
-| `packages/units` | Exact conversions (international foot, acre-foot), affine temperature, round-trip stability, cross-dimension refusal |
+| Suite                     | Coverage                                                                                                                                                                                                                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/units`          | Exact conversions (international foot, acre-foot), affine temperature, round-trip stability, cross-dimension refusal                                                                                                                                                                 |
 | `packages/hydrology-core` | Distribution functions against analytic values; NSE/KGE identities; SPI standardisation (mean ≈ 0, sd ≈ 1, expected drought fraction); Wilson–Hilferty against Bulletin 17B tables; GR4J mass balance and parameter monotonicity; reservoir mass conservation; water-balance closure |
-| `apps/api` | Full HTTP integration: auth (including refresh-token misuse and timing parity), provenance presence and shape, flood disclaimers, forecast interval nesting, GR4J skill, "integration required" behaviour, Copilot routing and refusal, report content |
-| `apps/web` | Chart and provenance component behaviour |
-| `services/science` | Metrics matching the TypeScript implementation; no target leakage in features; chronological split; reproducibility; substitution reporting |
+| `apps/api`                | Full HTTP integration: auth (including refresh-token misuse and timing parity), provenance presence and shape, flood disclaimers, forecast interval nesting, GR4J skill, "integration required" behaviour, Copilot routing and refusal, report content                               |
+| `apps/web`                | Chart and provenance component behaviour                                                                                                                                                                                                                                             |
+| `services/science`        | Metrics matching the TypeScript implementation; no target leakage in features; chronological split; reproducibility; substitution reporting                                                                                                                                          |
 
-The scientific tests assert *behaviour that matters*: that SPI is genuinely standard-normal, that
+The scientific tests assert _behaviour that matters_: that SPI is genuinely standard-normal, that
 prediction intervals nest and never go negative, that a fallback is reported, that a short record is
 refused. Reference values come from the literature, not from a previous run of this code.
 
@@ -600,16 +610,16 @@ hydrology-copilot/
 
 The phases below are what this build does **not** yet do, stated plainly.
 
-| Phase | Work |
-| --- | --- |
-| Forcing | Ingest USGS NWIS and NOAA/NWS quantitative precipitation forecasts. This is the single change that most improves forecast skill — every forecast currently carries the zero-future-rainfall caveat. |
-| Hydraulics | Execute HEC-RAS 2D and replace the illustrative inundation footprint with modelled depth, velocity, arrival time and extent. |
-| Engines | Process invocation and output parsing for HEC-HMS, SWAT/SWAT+ and MODFLOW; the adapters and validation already exist. |
-| Deep learning | Ship PyTorch in the science image; implement the Temporal Fusion Transformer with known-future covariates and a quantile loss. |
-| Spatial | Distributed (gridded) modelling, DEM-based delineation, spatial interpolation of precipitation and water quality. |
-| Drought | PDSI with climate-division soil water capacity; seasonal drought outlooks from a climate forecast. |
-| Reporting | Native DOCX and PDF export (HTML export and browser printing work today). |
-| Platform | SSO/OIDC, per-project audit export, multi-reservoir system optimisation, scheduled analyses. |
+| Phase         | Work                                                                                                                                                                                                |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Forcing       | Ingest USGS NWIS and NOAA/NWS quantitative precipitation forecasts. This is the single change that most improves forecast skill — every forecast currently carries the zero-future-rainfall caveat. |
+| Hydraulics    | Execute HEC-RAS 2D and replace the illustrative inundation footprint with modelled depth, velocity, arrival time and extent.                                                                        |
+| Engines       | Process invocation and output parsing for HEC-HMS, SWAT/SWAT+ and MODFLOW; the adapters and validation already exist.                                                                               |
+| Deep learning | Ship PyTorch in the science image; implement the Temporal Fusion Transformer with known-future covariates and a quantile loss.                                                                      |
+| Spatial       | Distributed (gridded) modelling, DEM-based delineation, spatial interpolation of precipitation and water quality.                                                                                   |
+| Drought       | PDSI with climate-division soil water capacity; seasonal drought outlooks from a climate forecast.                                                                                                  |
+| Reporting     | Native DOCX and PDF export (HTML export and browser printing work today).                                                                                                                           |
+| Platform      | SSO/OIDC, per-project audit export, multi-reservoir system optimisation, scheduled analyses.                                                                                                        |
 
 ---
 
