@@ -1,13 +1,14 @@
-# Hydrology Copilot
+# HydroFlow AI
+
+[![CI](https://github.com/tesfakokeb/HydroFlow-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/tesfakokeb/HydroFlow-AI/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/tesfakokeb/HydroFlow-AI/blob/main/LICENSE)
+[![Node](https://img.shields.io/badge/Node-%3E%3D20-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 
 **AI-Powered Water Resources Intelligence**
 *Analyze. Forecast. Model. Predict. Manage Water.*
 
-A cloud-native decision-support platform for hydrologists, water resources engineers, planners and
-emergency managers. It combines a conversational analytical interface with real hydrologic science:
-drought indices, flood frequency, rainfall-runoff modelling, probabilistic forecasting, water-quality
-analytics and reservoir simulation — each one implemented against a published method, unit-tested
-against reference values, and reported with the data, assumptions, limitations and uncertainty behind it.
+HydroFlow AI is a cloud-native decision-support platform for hydrologists, water resources engineers, planners, and emergency managers. The repository combines a conversational analytical interface with real hydrologic science: drought indices, flood frequency, rainfall-runoff modeling, probabilistic forecasting, water-quality analytics, and reservoir simulation — each implemented against a published method, unit-tested against reference values, and reported with the data, assumptions, limitations, and uncertainty behind it.
 
 ---
 
