@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions or support
+    url: https://github.com/tesfakokeb/HydroFlow-AI/discussions
+    about: Ask usage questions, troubleshoot setup issues, or discuss the project with the community.
